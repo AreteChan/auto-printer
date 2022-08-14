@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  background-color: #F0A69F;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.speed {
+  position: absolute;
+  bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  border-radius: 20px;
+}
+
+input {
+  width: 50px;
+  padding: 5px;
+  font-size: 16px;
+  background-color: #F0A69F;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  outline: none;
+}
+
+/* 起定位作用 */
+.circle {
+  position: absolute;
+  bottom: 74.5px;
+  right: 74.5px;
+  border-radius: 50%;
+}
+
+.inputText {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  text-align: left;
+  transition: all 0.5s ease;
+}
+
+button {
+  position: absolute;
+  opacity: 0;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.5s, background-color 0s;
+}
+
+/* 点击效果 */
+button:active {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+button.active {
+  opacity: 1;
+  font-size: 20px;
+  border-radius: 0 50% 50% 0;
+}
+
+.open {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.inputText.active{
+  width: 300px;
+  padding: 0 60px 0 20px;
+  transform: translateX(-250px);
+}
+
+@media screen and (max-width: 800px) {
+  .speed {
+    left: 25px;
+  }
+}

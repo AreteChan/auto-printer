@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <script src="./vue.js"></script>
+  <title>Auto Printer</title>
+</head>
+<body>
+  <div id="app">
+    <h1 id="text">{{show}}</h1>
+    <div class="speed">
+      <label for="speed">Speed: </label>
+      <input type="number" v-model.number="speed" min="1" max="10">
+    </div>
+    <div class="circle" >
+      <input type="text" class="inputText" :class="{active: isActive}"  ref="inputText" @keyup.enter="changeText" @blur="removeActive">
+      <button @click="changeText" :class="{active: isActive}">
+        <i class="fas fa-angle-up"></i>
+      </button>
+      <div class="open" ref="open" @click="addActive"></div>
+    </div>
+  </div>
+  <script>
+    // 实现功能如下：
+    // 1. 自动打印文本
+    // 2. 更新打印文本
+    // 3. circle内元素的样式变换
+    const app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          text: localStorage.getItem("text") || 'Happy Programming!',
+          show: '',
+          speed: 1,
+          count: 1,  //printer方法调用的外部变量
+          isActive: false
+        }
+      },
+      computed: {
+        calcSpeed() {
+          return 1000 / this.speed
+        },
+      },
+      methods: {
+        //自动打印文本
+        printer() {
+          let show = this.text.slice(0, this.count)
+          this.count++
+          if(this.count > this.text.length) {
+            this.count = 1
+          }
+          this.show = show
+          setTimeout(this.printer, this.calcSpeed)
+        },
+        //更新打印文本
+        changeText() {
+          //input框的值不为空时执行
+          if(this.$refs.inputText.value) {
+            this.text = this.$refs.inputText.value
+          }
+          localStorage.setItem('text', this.$refs.inputText.value)
+        },
+        //circle内元素的样式变换
+        addActive() {
+          //修改isActive，隐藏open按钮，输入框获取焦点
+          this.isActive = true
+          this.$refs.open.hidden = true
+          this.$refs.inputText.focus()
+        },
+        removeActive() {
+          this.changeText()
+          this.$refs.inputText.value = ''
+          this.isActive = false
+          this.$refs.open.hidden = false
+        }
+      },
+      beforeMount() {
+        this.printer()
+      },
+    })
+  </script>
+</body>
+</html>
