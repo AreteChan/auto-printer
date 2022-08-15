@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,10 +66,14 @@
         },
         //circle内元素的样式变换
         addActive() {
-          //修改isActive，隐藏open按钮，输入框获取焦点
+          //修改isActive，隐藏open按钮，输入框获取焦点与当前文本
           this.isActive = true
           this.$refs.open.hidden = true
           this.$refs.inputText.focus()
+          function getText() {
+            this.$refs.inputText.value = this.text
+          }
+          setTimeout(getText.bind(this), 100) //0.1s后获取文本，搭配动画更自然
         },
         removeActive() {
           this.changeText()
