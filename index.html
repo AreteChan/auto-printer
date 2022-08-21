@@ -45,6 +45,13 @@
           return 1000 / this.speed
         },
       },
+      watch: {
+        //限制手动输入speed的取值范围
+        speed(val) {
+          if (val < 1) this.speed = 1
+          if (val > 10) this.speed = 10
+        }
+      },
       methods: {
         //自动打印文本
         printer() {
